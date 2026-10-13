@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChronoX — Countdown Timer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#">
+        <span class="brand-icon">C</span>
+        <span>Chrono<span class="brand-accent">X</span></span>
+      </a>
+
+      <div class="sidebar-label">WORKSPACE</div>
+
+      <nav class="navigation">
+        <button class="nav-link active" data-filter="all">
+          <span class="nav-icon">◷</span>
+          <span>All countdowns</span>
+          <span class="nav-count" id="allCount">0</span>
+        </button>
+        <button class="nav-link" data-filter="upcoming">
+          <span class="nav-icon">◷</span>
+          <span>Upcoming</span>
+        </button>
+        <button class="nav-link" data-filter="completed">
+          <span class="nav-icon">✓</span>
+          <span>Completed</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-label category-heading">QUICK PRESETS</div>
+
+      <div class="preset-list">
+        <button class="preset-button" data-preset="3600000">
+          <span class="preset-dot purple"></span> 1 hour
+        </button>
+        <button class="preset-button" data-preset="86400000">
+          <span class="preset-dot blue"></span> 24 hours
+        </button>
+        <button class="preset-button" data-preset="604800000">
+          <span class="preset-dot green"></span> 7 days
+        </button>
+        <button class="preset-button" data-preset="2592000000">
+          <span class="preset-dot orange"></span> 30 days
+        </button>
+      </div>
+
+      <div class="sidebar-bottom">
+        <button class="nav-link settings-button" id="settingsButton">
+          <span class="nav-icon">⚙</span>
+          <span>Settings</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content">
+
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-button mobile-menu" id="menuButton" aria-label="Toggle sidebar">☰</button>
+          <div class="breadcrumb">Workspace <span>/</span> <strong>Countdowns</strong></div>
+        </div>
+        <div class="topbar-actions">
+          <div class="live-indicator"><span class="live-dot"></span> LIVE</div>
+          <button class="icon-button" id="themeButton" title="Toggle theme">☾</button>
+          <button class="primary-button" id="createButton">
+            <span>＋</span> New countdown
+          </button>
+        </div>
+      </header>
+
+      <!-- Intro -->
+      <section class="dashboard-intro">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-line"></span>YOUR TIME, YOUR MILESTONES</div>
+          <h1>Every second brings you <span>closer.</span></h1>
+          <p class="intro-description">Keep your goals in sight. Count down to the moments that matter.</p>
+        </div>
+        <div class="today-card">
+          <span class="today-icon">◷</span>
+          <div>
+            <span class="today-label">YOUR LOCAL TIME</span>
+            <strong id="currentTime">--:--:--</strong>
+            <span id="currentDate">Loading...</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stats -->
+      <section class="stats-grid">
+        <article class="stat-card">
+          <div class="stat-top">
+            <span class="stat-label">TOTAL EVENTS</span>
+            <span class="stat-icon purple-bg">◷</span>
+          </div>
+          <div class="stat-value" id="totalEvents">0</div>
+          <p class="stat-description">All your milestones</p>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top">
+            <span class="stat-label">UPCOMING</span>
+            <span class="stat-icon blue-bg">↗</span>
+          </div>
+          <div class="stat-value" id="upcomingEvents">0</div>
+          <p class="stat-description">Events still ahead</p>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top">
+            <span class="stat-label">COMPLETED</span>
+            <span class="stat-icon green-bg">✓</span>
+          </div>
+          <div class="stat-value" id="completedEvents">0</div>
+          <p class="stat-description">Moments reached</p>
+        </article>
+        <article class="stat-card">
+          <div class="stat-top">
+            <span class="stat-label">NEXT MILESTONE</span>
+            <span class="stat-icon orange-bg">✦</span>
+          </div>
+          <div class="stat-value stat-value-small" id="nextMilestone">No events</div>
+          <p class="stat-description" id="nextMilestoneDate">Create your first countdown</p>
+        </article>
+      </section>
+
+      <!-- Featured -->
+      <section class="featured-section">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">THE NEXT BIG THING</div>
+            <h2>Featured countdown</h2>
+          </div>
+          <span class="featured-badge"><span class="live-dot"></span>LIVE COUNTDOWN</span>
+        </div>
+
+        <div class="featured-card">
+          <div class="featured-decoration decoration-one"></div>
+          <div class="featured-decoration decoration-two"></div>
+
+          <div class="featured-content">
+            <div class="featured-copy">
+              <span class="featured-kicker" id="featuredCategory">YOUR NEXT MILESTONE</span>
+              <h3 id="featuredTitle">Your next chapter starts here.</h3>
+              <p id="featuredDescription">Create a countdown and give your next goal a deadline.</p>
+              <div class="featured-date">
+                <span>◷</span>
+                <span id="featuredDate">No target date selected</span>
+              </div>
+            </div>
+
+            <div class="countdown-units featured-units">
+              <div class="time-unit">
+                <div class="time-box"><span id="featuredDays">00</span></div>
+                <span class="time-label">DAYS</span>
+              </div>
+              <span class="time-separator">:</span>
+              <div class="time-unit">
+                <div class="time-box"><span id="featuredHours">00</span></div>
+                <span class="time-label">HOURS</span>
+              </div>
+              <span class="time-separator">:</span>
+              <div class="time-unit">
+                <div class="time-box"><span id="featuredMinutes">00</span></div>
+                <span class="time-label">MINUTES</span>
+              </div>
+              <span class="time-separator">:</span>
+              <div class="time-unit">
+                <div class="time-box"><span id="featuredSeconds">00</span></div>
+                <span class="time-label">SECONDS</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="featured-footer">
+            <div class="progress-info">
+              <span id="featuredProgressLabel">Journey progress</span>
+              <strong id="featuredProgressText">0%</strong>
+            </div>
+            <div class="progress-track" id="featuredProgressBar">
+              <div class="progress-fill" id="featuredProgressFill"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Events list -->
+      <section class="events-section">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">YOUR PERSONAL TIMELINE</div>
+            <h2>All countdowns <span id="eventHeadingCount">(0)</span></h2>
+          </div>
+          <button class="text-button" id="exportButton">↓ Export data</button>
+        </div>
+
+        <div class="toolbar">
+          <label class="search-box">
+            <span>⌕</span>
+            <input type="search" id="searchInput" placeholder="Search countdowns..." />
+          </label>
+          <label class="sort-control">
+            <span>Sort:</span>
+            <select id="sortSelect">
+              <option value="date">Nearest first</option>
+              <option value="date-desc">Farthest first</option>
+              <option value="name">Name A–Z</option>
+              <option value="created">Recently created</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="events-grid" id="eventsGrid"></div>
+
+        <div class="list-footer">
+          <span id="resultsLabel">Showing 0 events</span>
+          <button class="text-button" id="importButton">↑ Import backup</button>
+          <input type="file" id="importFile" accept=".json" hidden />
+        </div>
+      </section>
+
+      <footer class="app-footer">
+        <span>© <span id="footerYear">2026</span> ChronoX</span>
+        <span>Designed to make every second count <span class="footer-star">✦</span></span>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Create/Edit Modal -->
+  <dialog class="modal" id="countdownModal">
+    <form id="countdownForm" class="modal-form">
+      <div class="modal-header">
+        <div>
+          <div class="eyebrow">MAKE IT COUNT</div>
+          <h2 id="modalTitle">Create countdown</h2>
+          <p>Choose a moment worth counting down to.</p>
+        </div>
+        <button type="button" class="icon-button" id="closeModalButton">✕</button>
+      </div>
+
+      <input type="hidden" id="eventId" />
+
+      <div class="form-field">
+        <label for="eventTitle">Event title *</label>
+        <input id="eventTitle" type="text" placeholder="e.g. Internship deadline" maxlength="80" required />
+      </div>
+
+      <div class="form-field">
+        <label for="eventDescription">Description</label>
+        <textarea id="eventDescription" placeholder="Why is this moment important?" maxlength="300" rows="3"></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="eventDate">Target date *</label>
+          <input id="eventDate" type="date" required />
+        </div>
+        <div class="form-field">
+          <label for="eventTime">Target time *</label>
+          <input id="eventTime" type="time" value="12:00" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="eventCategory">Category</label>
+          <select id="eventCategory">
+            <option value="Personal">Personal</option>
+            <option value="Education">Education</option>
+            <option value="Career">Career</option>
+            <option value="Birthday">Birthday</option>
+            <option value="Travel">Travel</option>
+            <option value="Project">Project</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="eventColor">Accent color</label>
+          <select id="eventColor">
+            <option value="purple">Violet</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+            <option value="orange">Orange</option>
+            <option value="pink">Pink</option>
+          </select>
+        </div>
+      </div>
+
+      <label class="checkbox-field">
+        <input type="checkbox" id="featuredCheckbox" />
+        <span>Set as featured countdown</span>
+      </label>
+
+      <div class="modal-actions">
+        <button type="button" class="secondary-button" id="cancelModalButton">Cancel</button>
+        <button type="submit" class="primary-button" id="saveEventButton">Save countdown</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Settings Modal -->
+  <dialog class="modal settings-modal" id="settingsModal">
+    <div class="modal-header">
+      <div>
+        <div class="eyebrow">PREFERENCES</div>
+        <h2>Settings</h2>
+        <p>Customize your ChronoX experience.</p>
+      </div>
+      <button type="button" class="icon-button" id="closeSettingsButton">✕</button>
+    </div>
+
+    <div class="settings-content">
+      <label class="setting-row">
+        <span>
+          <strong>Browser notifications</strong>
+          <small>Get notified when a countdown finishes.</small>
+        </span>
+        <input type="checkbox" id="notificationToggle" />
+      </label>
+
+      <label class="setting-row">
+        <span>
+          <strong>Completion sound</strong>
+          <small>Play a short sound when a timer ends.</small>
+        </span>
+        <input type="checkbox" id="soundToggle" />
+      </label>
+
+      <label class="setting-row">
+        <span>
+          <strong>24-hour clock</strong>
+          <small>Use a 24-hour time display.</small>
+        </span>
+        <input type="checkbox" id="formatToggle" checked />
+      </label>
+
+      <div class="settings-actions">
+        <button type="button" class="secondary-button" id="clearCompletedButton">Clear completed events</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Toasts -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
