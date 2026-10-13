@@ -4,7 +4,10 @@ A modern, lightweight countdown timer built with **pure vanilla JavaScript** —
 
 ## 🌐 Live Demo
 
-👉 [View Live](https://TUMHARA-USERNAME.github.io/chronox/)
+👉 [View Live](https://vishal-maddheshiya.github.io/chronox/)
+👉 [GitHub repo](https://github.com/VISHAL-MADDHESHIYA/chronox)
+
+
 
 ## ✨ Features
 
